@@ -78,6 +78,14 @@ The `main.ipynb` Jupyter notebook contains the training pipeline.
 
 The notebook includes data balancing, feature extraction, hyperparameter tuning, and model evaluation.
 
+## Problem Statement
+
+Cognitive load refers to the amount of mental effort required to process information. High cognitive load can lead to decreased performance, stress, and errors in tasks such as learning or work. Detecting cognitive load in real-time from facial expressions can help in adaptive systems, education, and human-computer interaction.
+
+## Goal of the Project
+
+The goal is to develop a non-invasive, real-time system that analyzes facial features from webcam video to classify cognitive load into three levels: LOW, MEDIUM, and HIGH. This enables applications like personalized learning environments, workload monitoring, and user experience optimization.
+
 ## Dataset
 
 The training uses the DAiSEE dataset, which contains video clips of students with annotated engagement, boredom, confusion, and frustration levels. Cognitive load is derived from these labels:
@@ -86,7 +94,7 @@ The training uses the DAiSEE dataset, which contains video clips of students wit
 - MEDIUM: Boredom >= 2
 - HIGH: Confusion >= 2 or Frustration >= 2
 
-Download the dataset from [Kaggle DAiSEE](https://www.kaggle.com/datasets/msambare/fer2013) or the official source.
+Download the dataset from [Kaggle DAiSEE](https://www.kaggle.com/datasets/olgaparfenova/daisee) or the official source.
 
 ## Dependencies
 
@@ -99,17 +107,33 @@ See `requirements.txt` for the full list. Key libraries include:
 - numpy
 - tqdm
 
+## Model Pipeline and Workflow
+
+1. **Data Preparation**: Load DAiSEE dataset labels, filter available videos, balance classes (40% LOW, 30% MEDIUM, 30% HIGH).
+2. **Feature Extraction**: For each video, use MediaPipe to detect facial landmarks, compute eye aspect ratio (EAR), blink count, and facial motion energy over frames.
+3. **Model Training**: Train RandomForest classifier with grid search hyperparameter tuning (max_depth, max_leaf_nodes, min_samples_split, n_estimators).
+4. **Evaluation**: Use stratified k-fold cross-validation with F1-weighted scoring.
+5. **Inference**: In real-time, capture webcam frames, extract features over a window, predict cognitive load level.
+
 ## Model Details
 
 - **Features**: Eye aspect ratio (EAR), blink count, facial motion energy
 - **Classifier**: RandomForest with optimized hyperparameters (max_depth=10, max_leaf_nodes=5, min_samples_split=5, n_estimators=200)
 - **Performance**: F1-weighted score ~0.40 on cross-validation
 
+## Deployment Details
+
+The system is deployed as a Python script (main.py) for real-time inference on local machines. It requires a webcam and runs on CPU/GPU with OpenCV and MediaPipe. For production, it can be containerized with Docker or integrated into web apps using Flask/Django. Ensure camera permissions and compatible hardware (tested on Linux with libcamera for Raspberry Pi).
+
 ## Troubleshooting
 
 - **Camera Issues**: Ensure camera permissions and correct pipeline for your device.
 - **Model Not Found**: Verify `cognitive_load_model.pkl` exists.
 - **Video Processing**: Requires sufficient RAM for large video files.
+
+## Team Members
+
+- Ashank Gupta,Vatsal,Gurleen Kaur,Sakshi Jadhav,Tanvi Thakre
 
 ## Contributing
 
