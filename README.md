@@ -15,7 +15,7 @@ The system includes both a pre-trained model for real-time inference and a train
 
 1. Clone the repository:
    ```
-   git clone <repository-url>
+   git clone https://github.com/ashankgupta/cognitive_load_detection.git
    cd project
    ```
 
