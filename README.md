@@ -1,3 +1,5 @@
+![Alt text](images/1.jpg)
+
 # Cognitive Load Detection
 
 This project implements a real-time cognitive load detection system using facial feature analysis. It leverages MediaPipe for facial landmark detection and a machine learning model to classify cognitive load levels (LOW, MEDIUM, HIGH) based on eye aspect ratio, blink frequency, and facial motion energy.
